@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">ProductClient</string>
+    <string name="login">Login</string>
+    <string name="title_product_register">Cadastro de Produto</string>
+    <string name="title_product_update">Atualização de Produto</string>
+    <string name="name">Nome</string>
+    <string name="description">Descrição</string>
+    <string name="category">Categoria</string>
+    <string name="brand">Marca</string>
+    <string name="quantity">Quantidade</string>
+    <string name="provider">Fornecedora</string>
+    <string name="bar_code">Código de Barras</string>
+    <string name="fabrication_date">Data de Fabricação</string>
+    <string name="expiration_date">Data de Validade</string>
+    <string name="date_format">DD/MM/AAAA</string>
+    <string name="title_search_product_filter">Filtragem de Produto</string>
+    <string name="id">ID</string>
+    <string name="inclusion_date">Data de Inclusão</string>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="sign_in">Entrar</string>
+    <string name="title_product_info">Informações do Produto</string>
+    <string name="title_app_name">Inventário Digital</string>
+</resources>

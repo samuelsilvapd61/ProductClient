@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <TextView
+        android:id="@+id/text_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_200"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/title_product_register"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_back"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintBottom_toBottomOf="@id/text_bar"
+        app:layout_constraintStart_toStartOf="@id/text_bar"
+        app:layout_constraintTop_toTopOf="@id/text_bar" />
+
+    <ImageButton
+        android:id="@+id/image_qr_code"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:padding="15dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_qr_code"
+        app:layout_constraintBottom_toBottomOf="@id/text_bar"
+        app:layout_constraintEnd_toEndOf="@id/text_bar"
+        app:layout_constraintTop_toTopOf="@id/text_bar" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_bar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/text_name"
+                style="@style/TextViewFormDescription"
+                android:layout_marginTop="0dp"
+                android:text="@string/name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_name"
+                style="@style/EditTextForm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_name" />
+
+            <TextView
+                android:id="@+id/text_description"
+                style="@style/TextViewFormDescription"
+                android:text="@string/description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_name" />
+
+            <EditText
+                android:id="@+id/edit_description"
+                style="@style/EditTextForm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_description" />
+
+            <TextView
+                android:id="@+id/text_category"
+                style="@style/TextViewFormDescription"
+                android:text="@string/category"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_description" />
+
+            <EditText
+                android:id="@+id/edit_category"
+                style="@style/EditTextForm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_category" />
+
+            <TextView
+                android:id="@+id/text_brand"
+                style="@style/TextViewFormDescription"
+                android:text="@string/brand"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_category" />
+
+            <EditText
+                android:id="@+id/edit_brand"
+                style="@style/EditTextForm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_brand" />
+
+            <TextView
+                android:id="@+id/text_quantity"
+                style="@style/TextViewFormDescription"
+                android:text="@string/quantity"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_brand" />
+
+            <ImageButton
+                android:id="@+id/image_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_remove"
+                app:layout_constraintBottom_toBottomOf="@+id/text_quantity_value"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_quantity_value" />
+
+            <TextView
+                android:id="@+id/text_quantity_value"
+                style="@style/TextViewFormDescription"
+                android:layout_marginStart="10dp"
+                android:text="0"
+                android:textSize="30sp"
+                app:layout_constraintStart_toEndOf="@id/image_minus"
+                app:layout_constraintTop_toBottomOf="@id/text_quantity" />
+
+            <ImageButton
+                android:id="@+id/image_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_add"
+                app:layout_constraintBottom_toBottomOf="@+id/text_quantity_value"
+                app:layout_constraintStart_toEndOf="@+id/text_quantity_value"
+                app:layout_constraintTop_toTopOf="@+id/text_quantity_value" />
+
+            <TextView
+                android:id="@+id/text_provider"
+                style="@style/TextViewFormDescription"
+                android:text="@string/provider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_quantity_value" />
+
+            <EditText
+                android:id="@+id/edit_provider"
+                style="@style/EditTextForm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_provider" />
+
+            <TextView
+                android:id="@+id/text_bar_code"
+                style="@style/TextViewFormDescription"
+                android:text="@string/bar_code"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_provider" />
+
+            <EditText
+                android:id="@+id/edit_bar_code"
+                style="@style/EditTextForm"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_bar_code" />
+
+            <TextView
+                android:id="@+id/text_fabrication_date"
+                style="@style/TextViewFormDescription"
+                android:text="@string/fabrication_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_bar_code" />
+
+            <EditText
+                android:id="@+id/edit_fabrication_date"
+                style="@style/EditTextForm"
+                android:hint="@string/date_format"
+                android:inputType="date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_fabrication_date" />
+
+            <TextView
+                android:id="@+id/text_expiration_date"
+                style="@style/TextViewFormDescription"
+                android:text="@string/expiration_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_fabrication_date" />
+
+            <EditText
+                android:id="@+id/edit_expiration_date"
+                style="@style/EditTextForm"
+                android:hint="@string/date_format"
+                android:inputType="date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_expiration_date" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_save" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
