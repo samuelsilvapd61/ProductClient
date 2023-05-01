@@ -21,4 +21,8 @@
     <string name="sign_in">Entrar</string>
     <string name="title_product_info">Informações do Produto</string>
     <string name="title_app_name">Inventário Digital</string>
+
+    <string name="ERROR_UNEXPECTED">Um erro inesperado ocorreu. Tente novamente mais tarde.</string>
+    <string name="ERROR_INTERNET_CONNECTION">Conexão à internet necessária para uso da applicação.</string>
+    <string name="ERROR_EXPIRED_LOGIN">Seu login expirou. Faça login novamente.</string>
 </resources>

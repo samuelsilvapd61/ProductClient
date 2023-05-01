@@ -1,11 +1,10 @@
-package com.samuelsilva.productclient
+package com.samuelsilva.productclient.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.samuelsilva.productclient.databinding.ActivityProductInfoBinding
-import com.samuelsilva.productclient.databinding.ActivityRegisterBinding
 
 class ProductInfoActivity : AppCompatActivity(), View.OnClickListener {
 

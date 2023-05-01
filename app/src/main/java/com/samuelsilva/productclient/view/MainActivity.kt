@@ -1,4 +1,4 @@
-package com.samuelsilva.productclient
+package com.samuelsilva.productclient.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
