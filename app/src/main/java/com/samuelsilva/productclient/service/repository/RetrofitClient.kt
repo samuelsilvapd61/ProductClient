@@ -30,7 +30,7 @@ class RetrofitClient private constructor() {
             if (!::INSTANCE.isInitialized) {
                 synchronized(RetrofitClient::class) {
                     INSTANCE = Retrofit.Builder()
-                        .baseUrl("http://192.168.1.80:8888/")
+                        .baseUrl("http://10.0.0.115:8888/")
                         .client(httpClient.build())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()

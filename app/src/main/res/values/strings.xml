@@ -25,4 +25,7 @@
     <string name="ERROR_UNEXPECTED">Um erro inesperado ocorreu. Tente novamente mais tarde.</string>
     <string name="ERROR_INTERNET_CONNECTION">Conexão à internet necessária para uso da applicação.</string>
     <string name="ERROR_EXPIRED_LOGIN">Seu login expirou. Faça login novamente.</string>
+    <string name="title_biometric_authetication">Autenticação biométrica</string>
+    <string name="cancel">Cancelar</string>
+
 </resources>
