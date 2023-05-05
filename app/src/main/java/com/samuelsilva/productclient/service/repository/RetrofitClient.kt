@@ -12,7 +12,7 @@ class RetrofitClient private constructor() {
     companion object {
 
         private lateinit var INSTANCE: Retrofit
-        private var token: String = ""
+        private var token: String? = ""
 
         private fun getRetrofitInstance(): Retrofit {
             val httpClient = OkHttpClient.Builder()
@@ -20,17 +20,23 @@ class RetrofitClient private constructor() {
             httpClient.addInterceptor(object : Interceptor {
                 override fun intercept(chain: Interceptor.Chain): Response {
                     val request = chain.request()
-                        .newBuilder()
-                        .addHeader(Constants.HEADER.TOKEN_KEY, token)
-                        .build()
-                    return chain.proceed(request)
+
+                    val newRequest = if (token == null) {
+                        request.newBuilder().build()
+                    } else {
+                        request.newBuilder()
+                            .addHeader(Constants.HEADER.AUTHORIZATION, "${Constants.HEADER.BEARER} $token")
+                            .build()
+                    }
+
+                    return chain.proceed(newRequest)
                 }
             })
 
             if (!::INSTANCE.isInitialized) {
                 synchronized(RetrofitClient::class) {
                     INSTANCE = Retrofit.Builder()
-                        .baseUrl("http://10.0.0.115:8888/")
+                        .baseUrl(Constants.PATH.IP)
                         .client(httpClient.build())
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
@@ -43,7 +49,7 @@ class RetrofitClient private constructor() {
             return getRetrofitInstance().create(serviceClass)
         }
 
-        fun addHeaders(tokenValue: String) {
+        fun addHeaders(tokenValue: String?) {
             token = tokenValue
         }
     }

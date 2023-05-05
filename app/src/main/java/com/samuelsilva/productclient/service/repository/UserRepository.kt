@@ -16,6 +16,10 @@ class UserRepository(context: Context) : BaseRepository(context) {
             return
         }
 
+        // Setando o token como null, para não adicionar o header no momento de login
+        RetrofitClient.addHeaders(null)
+
+        // Executando a chamada
         val user = UserModel().apply {
             this.email = email
             this.password = password

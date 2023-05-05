@@ -46,11 +46,16 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         if (v.id == binding.buttonLogin.id) {
-            val inputMethodManager =
-                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
+            hideKeyboard(v)
             handleLogin()
         }
+    }
+
+    private fun hideKeyboard(v: View) {
+        // Código para esconder o teclado quando apertar o botão
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
     }
 
     private fun handleLogin() {

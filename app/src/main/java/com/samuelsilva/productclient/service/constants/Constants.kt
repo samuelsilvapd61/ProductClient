@@ -12,8 +12,12 @@ class Constants private constructor() {
 
     // Requisições API
     object HEADER {
-        const val TOKEN_KEY = "token"
-        const val PERSON_KEY = "personkey"
+        const val AUTHORIZATION = "Authorization"
+        const val BEARER = "Bearer"
+    }
+
+    object PATH {
+        const val IP = "http://10.0.0.115:8888/"
     }
 
     object HTTP {
