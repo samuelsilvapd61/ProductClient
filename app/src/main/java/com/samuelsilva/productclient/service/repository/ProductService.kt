@@ -10,7 +10,7 @@ interface ProductService {
     @GET("products")
     fun getProductsByParameter(
         @Query("id") id: Long?,
-        @Query("name")name: String?,
+        @Query("name") name: String?,
         @Query("description") description: String?,
         @Query("category") category: String?,
         @Query("productBrand") productBrand: String?,
@@ -19,7 +19,10 @@ interface ProductService {
         @Query("barCode") barCode: String?,
         @Query("fabricationDate") fabricationDate: String?,
         @Query("expirationDate") expirationDate: String?,
-        @Query("inclusionDate") inclusionDate: String?
+        @Query("inclusionDate") inclusionDate: String?,
+        @Query("page") page: Int?,
+        @Query("size") size: Int?,
+        @Query("sort") sort: String?
     ): Call<List<ProductModel>>
 
 }

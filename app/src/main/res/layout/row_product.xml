@@ -2,39 +2,42 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp">
 
     <TextView
         android:id="@+id/text_name_value"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/name"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/text_brand_value"/>
 
     <TextView
         android:id="@+id/text_brand_value"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/brand"
-        app:layout_constraintHorizontal_bias="0.7"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_name_value"
         app:layout_constraintTop_toTopOf="@id/text_name_value" />
 
     <TextView
-        android:layout_marginTop="2dp"
         android:id="@+id/text_category_value"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:text="@string/category"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/text_name_value"
         app:layout_constraintTop_toBottomOf="@id/text_name_value" />
 
     <TextView
@@ -43,7 +46,7 @@
         android:layout_height="wrap_content"
         android:text="@string/quantity"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@id/text_brand_value"
         app:layout_constraintTop_toTopOf="@id/text_category_value" />
 
@@ -51,13 +54,22 @@
         android:id="@+id/text_quantity_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
         android:text="0"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        android:layout_marginStart="3dp"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/text_quantity"
         app:layout_constraintTop_toTopOf="@id/text_quantity" />
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_category_value" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

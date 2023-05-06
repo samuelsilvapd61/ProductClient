@@ -37,7 +37,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-
     fun logout() {
         securityPreferences.remove(Constants.SHARED.TOKEN_KEY)
     }

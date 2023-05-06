@@ -4,15 +4,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.samuelsilva.productclient.databinding.ActivityMainBinding
+import com.samuelsilva.productclient.service.listener.ProductListener
+import com.samuelsilva.productclient.service.model.ProductModel
+import com.samuelsilva.productclient.view.adapter.ProductAdapter
 import com.samuelsilva.productclient.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
+
+    private val adapter = ProductAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +37,63 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.imageFilter.setOnClickListener(this)
         binding.imageLogout.setOnClickListener(this)
 
+        // Configura o adaptador que faz a listagem funcionar
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = adapter
+
+        createProductOnClickListeners(this)
+
+        handleScrollAction()
+
         // Observadores
         observe()
+    }
+
+    /**
+     * Verifica se o usuário já está no fim da lista e insiste em arrastar a tela,
+     *  na intenção de carregar mais produtos
+     */
+    private fun handleScrollAction() {
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                val itemCount = adapter.itemCount
+
+                val lastVisibleChild = layoutManager.getChildAt(layoutManager.childCount - 1)
+                val lastVisibleItemBottom = lastVisibleChild?.bottom ?: 0
+
+                val isLastItemCompletelyVisible = lastVisibleItemBottom <= recyclerView.height
+
+                if (lastVisibleItemPosition == itemCount - 1 && dy > 0 && isLastItemCompletelyVisible) {
+                    // exibe o ícone de carregamento abaixo da recyclerview
+                    binding.progressBar.visibility = View.VISIBLE
+
+                    // Modifica o layout para o ícone de carregamento aparecer na tela
+                    val constraintSet = ConstraintSet()
+                    constraintSet.clone(binding.root)
+                    constraintSet.clear(recyclerView.id, ConstraintSet.BOTTOM)
+                    constraintSet.connect(
+                        recyclerView.id,
+                        ConstraintSet.BOTTOM,
+                        binding.progressBar.id,
+                        ConstraintSet.TOP
+                    )
+                    constraintSet.applyTo(binding.root)
+
+                    // chama a função para buscar mais elementos
+                    loadMoreItems()
+                }
+            }
+        })
+    }
+
+    /**
+     * Busca mais produtos no servidor e incrementa a lista já existente na tela
+     */
+    private fun loadMoreItems() {
+        val s = ""
     }
 
     override fun onResume() {
@@ -57,7 +120,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 finish()
             } else {
                 if (it.expiredLogin()) {
-                    val snackbar = Snackbar.make(binding.root, it.message(), Snackbar.LENGTH_INDEFINITE)
+                    val snackbar =
+                        Snackbar.make(binding.root, it.message(), Snackbar.LENGTH_INDEFINITE)
                     snackbar.setAction("OK") {
                         snackbar.dismiss()
                         // Ação ao clicar no botão "OK"
@@ -70,11 +134,29 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+
+        viewModel.products.observe(this) {
+            adapter.updateTasks(it)
+        }
     }
 
     private fun handleLogout() {
         viewModel.logout()
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
+    }
+
+    /**
+     * Cria um listener individual para cada produto sendo exibido na tela
+     */
+    private fun createProductOnClickListeners(context: MainActivity) {
+        val listener = object : ProductListener {
+            override fun onListClick(product: ProductModel) {
+                val intent = Intent(context, ProductInfoActivity::class.java)
+                startActivity(intent)
+            }
+
+        }
+        adapter.attachListener(listener)
     }
 }

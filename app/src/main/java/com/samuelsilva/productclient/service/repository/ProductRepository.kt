@@ -26,7 +26,10 @@ class ProductRepository(context: Context) : BaseRepository(context) {
             null,
             null,
             null,
-            null
+            null,
+            0,
+            20,
+            "id,asc"
         ), listener)
     }
 
