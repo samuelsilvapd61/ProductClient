@@ -17,7 +17,7 @@ class Constants private constructor() {
     }
 
     object PATH {
-        const val IP = "http://10.0.0.115:8888/"
+        const val IP = "http://192.168.1.80:8888/"
     }
 
     object HTTP {

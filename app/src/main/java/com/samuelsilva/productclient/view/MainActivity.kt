@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,7 +42,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
 
+        val layoutParams = binding.recyclerView.layoutParams as ConstraintLayout.LayoutParams
+        layoutParams.bottomToTop = binding.fab.id
+        binding.recyclerView.layoutParams = layoutParams
+
         createProductOnClickListeners(this)
+
+
 
         handleScrollAction()
 
@@ -67,7 +74,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val isLastItemCompletelyVisible = lastVisibleItemBottom <= recyclerView.height
 
                 if (lastVisibleItemPosition == itemCount - 1 && dy > 0 && isLastItemCompletelyVisible) {
-                    // exibe o ícone de carregamento abaixo da recyclerview
+                    // Exibe o ícone de carregamento abaixo da recyclerview
                     binding.progressBar.visibility = View.VISIBLE
 
                     // Modifica o layout para o ícone de carregamento aparecer na tela
@@ -82,7 +89,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     )
                     constraintSet.applyTo(binding.root)
 
-                    // chama a função para buscar mais elementos
+                    // Chama a função para buscar mais elementos
                     loadMoreItems()
                 }
             }
@@ -93,12 +100,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
      * Busca mais produtos no servidor e incrementa a lista já existente na tela
      */
     private fun loadMoreItems() {
-        val s = ""
+        viewModel.list(true)
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.list()
+        viewModel.list(false)
     }
 
     override fun onClick(v: View) {
@@ -137,7 +144,23 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         viewModel.products.observe(this) {
             adapter.updateTasks(it)
+            resetLayout()
         }
+    }
+
+    /**
+     * Desfaz as alterações de layout após carregar a próxima página da consulta
+     */
+    private fun resetLayout() {
+        // Ajusta o layout para que o RecyclerView fique acima do FAB
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(binding.root)
+        constraintSet.clear(binding.recyclerView.id, ConstraintSet.BOTTOM)
+        constraintSet.connect(binding.recyclerView.id, ConstraintSet.BOTTOM, binding.fab.id, ConstraintSet.BOTTOM)
+        constraintSet.applyTo(binding.root)
+
+        // Oculta o ícone de carregamento
+        binding.progressBar.visibility = View.GONE
     }
 
     private fun handleLogout() {
@@ -152,8 +175,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun createProductOnClickListeners(context: MainActivity) {
         val listener = object : ProductListener {
             override fun onListClick(product: ProductModel) {
-                val intent = Intent(context, ProductInfoActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(context, ProductInfoActivity::class.java))
+                finish()
             }
 
         }

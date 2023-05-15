@@ -9,28 +9,36 @@ class ProductRepository(context: Context) : BaseRepository(context) {
 
     private val remote = RetrofitClient.getService(ProductService::class.java)
 
-    fun list(listener: APIListener<List<ProductModel>>) {
+    companion object {
+        var page: Int = 0
+    }
+
+    fun list(listener: APIListener<List<ProductModel>>, nextPage: Boolean) {
         if (!isConnectionAvailable()) {
             listener.onFailure(context.getString(R.string.ERROR_INTERNET_CONNECTION), false)
             return
         }
 
-        executeCall(remote.getProductsByParameter(
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            0,
-            20,
-            "id,asc"
-        ), listener)
+        if (nextPage) page++ else page = 0
+
+        executeCall(
+            remote.getProductsByParameter(
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                page,
+                20,
+                "id,asc"
+            ), listener
+        )
     }
 
 }

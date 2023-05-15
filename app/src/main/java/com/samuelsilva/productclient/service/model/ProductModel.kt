@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 class ProductModel {
 
+
+
     @SerializedName("id")
     var id: Long? = null
 

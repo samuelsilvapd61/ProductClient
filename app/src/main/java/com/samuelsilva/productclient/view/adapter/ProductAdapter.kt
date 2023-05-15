@@ -10,7 +10,7 @@ import com.samuelsilva.productclient.view.viewholder.ProductViewHolder
 
 class ProductAdapter : RecyclerView.Adapter<ProductViewHolder>() {
 
-    private var listProducts: List<ProductModel> = arrayListOf()
+    private var listProducts: MutableList<ProductModel> = mutableListOf()
     private lateinit var listener: ProductListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -20,8 +20,8 @@ class ProductAdapter : RecyclerView.Adapter<ProductViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-            println(position)
-            holder.bindData(listProducts[position])
+        println(position)
+        holder.bindData(listProducts[position])
     }
 
     override fun getItemCount(): Int {
@@ -29,7 +29,7 @@ class ProductAdapter : RecyclerView.Adapter<ProductViewHolder>() {
     }
 
     fun updateTasks(list: List<ProductModel>) {
-        listProducts = list
+        listProducts.addAll(list)
         notifyDataSetChanged()
     }
 

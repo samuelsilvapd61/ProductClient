@@ -22,7 +22,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _status = MutableLiveData<ValidationModel>()
     val status: LiveData<ValidationModel> = _status
 
-    fun list() {
+    fun list(nextPage: Boolean) {
         val listener = object : APIListener<List<ProductModel>> {
             override fun onSuccess(result: List<ProductModel>) {
                 _products.value = result
@@ -33,7 +33,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
 
-        productRepository.list(listener)
+        productRepository.list(listener, nextPage)
 
     }
 
