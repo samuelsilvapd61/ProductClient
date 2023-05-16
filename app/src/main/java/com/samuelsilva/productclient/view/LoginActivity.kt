@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.samuelsilva.productclient.R
 import com.samuelsilva.productclient.databinding.ActivityLoginBinding
+import com.samuelsilva.productclient.service.model.ProductModel
 import com.samuelsilva.productclient.viewmodel.LoginViewModel
 import java.util.concurrent.Executor
 
@@ -32,6 +33,20 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         // Esconder a barra superior que não serve pra nada
         supportActionBar?.hide()
+
+        ProductModel.productFilter = ProductModel().apply {
+            id = null
+            name = null
+            description = null
+            category = null
+            productBrand = null
+            provider = null
+            quantity = null
+            barCode = null
+            fabricationDate = null
+            expirationDate = null
+            inclusionDate = null
+        }
 
         // Eventos de click
         binding.buttonLogin.setOnClickListener(this)

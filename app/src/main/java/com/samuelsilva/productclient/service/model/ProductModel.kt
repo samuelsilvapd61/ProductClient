@@ -4,7 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 class ProductModel {
 
-
+    companion object {
+        lateinit var productFilter: ProductModel
+    }
 
     @SerializedName("id")
     var id: Long? = null

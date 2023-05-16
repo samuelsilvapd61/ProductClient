@@ -127,12 +127,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_remove"
-                app:layout_constraintBottom_toBottomOf="@+id/text_quantity_value"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_quantity"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/text_quantity_value" />
+                app:layout_constraintTop_toTopOf="@+id/edit_quantity" />
 
             <TextView
-                android:id="@+id/text_quantity_value"
+                android:id="@+id/edit_quantity"
                 style="@style/TextViewFormDescription"
                 android:layout_marginStart="10dp"
                 android:text="0"
@@ -146,16 +146,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:src="@drawable/ic_add"
-                app:layout_constraintBottom_toBottomOf="@+id/text_quantity_value"
-                app:layout_constraintStart_toEndOf="@+id/text_quantity_value"
-                app:layout_constraintTop_toTopOf="@+id/text_quantity_value" />
+                app:layout_constraintBottom_toBottomOf="@+id/edit_quantity"
+                app:layout_constraintStart_toEndOf="@+id/edit_quantity"
+                app:layout_constraintTop_toTopOf="@+id/edit_quantity" />
 
             <TextView
                 android:id="@+id/text_provider"
                 style="@style/TextViewFormDescription"
                 android:text="@string/provider"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_quantity_value" />
+                app:layout_constraintTop_toBottomOf="@id/edit_quantity" />
 
             <EditText
                 android:id="@+id/edit_provider"

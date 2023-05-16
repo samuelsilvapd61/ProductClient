@@ -137,7 +137,7 @@
                 app:layout_constraintTop_toBottomOf="@id/text_brand_value" />
 
             <TextView
-                android:id="@+id/text_quantity_value"
+                android:id="@+id/edit_quantity"
                 style="@style/TextViewFormValues"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -148,7 +148,7 @@
                 style="@style/TextViewFormDescription"
                 android:text="@string/provider"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_quantity_value" />
+                app:layout_constraintTop_toBottomOf="@id/edit_quantity" />
 
             <TextView
                 android:id="@+id/text_provider_value"

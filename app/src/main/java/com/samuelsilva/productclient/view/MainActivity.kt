@@ -48,8 +48,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         createProductOnClickListeners(this)
 
-
-
         handleScrollAction()
 
         // Observadores
@@ -100,12 +98,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
      * Busca mais produtos no servidor e incrementa a lista já existente na tela
      */
     private fun loadMoreItems() {
-        viewModel.list(true)
+        viewModel.list(ProductModel.productFilter, true)
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.list(false)
+        viewModel.list(ProductModel.productFilter, false)
     }
 
     override fun onClick(v: View) {
@@ -114,6 +112,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         } else if (v.id == binding.imageFilter.id) {
             startActivity(Intent(this, SearchFilterActivity::class.java))
+            finish()
 
         } else if (v.id == binding.imageLogout.id) {
             handleLogout()

@@ -13,7 +13,7 @@ class ProductRepository(context: Context) : BaseRepository(context) {
         var page: Int = 0
     }
 
-    fun list(listener: APIListener<List<ProductModel>>, nextPage: Boolean) {
+    fun list(listener: APIListener<List<ProductModel>>, productFilter: ProductModel, nextPage: Boolean) {
         if (!isConnectionAvailable()) {
             listener.onFailure(context.getString(R.string.ERROR_INTERNET_CONNECTION), false)
             return
@@ -23,17 +23,17 @@ class ProductRepository(context: Context) : BaseRepository(context) {
 
         executeCall(
             remote.getProductsByParameter(
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                productFilter.id,
+                productFilter.name,
+                productFilter.description,
+                productFilter.category,
+                productFilter.productBrand,
+                productFilter.provider,
+                productFilter.quantity,
+                productFilter.barCode,
+                productFilter.fabricationDate,
+                productFilter.expirationDate,
+                productFilter.inclusionDate,
                 page,
                 20,
                 "id,asc"
