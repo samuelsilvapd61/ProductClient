@@ -1,12 +1,19 @@
 package com.samuelsilva.productclient.view
 
-import android.content.Context
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import com.google.zxing.integration.android.IntentIntegrator
+import com.google.zxing.integration.android.IntentResult
+import com.samuelsilva.productclient.R
 import com.samuelsilva.productclient.databinding.ActivitySearchFilterBinding
 import com.samuelsilva.productclient.service.model.ProductModel
 import java.text.ParseException
@@ -17,6 +24,11 @@ class SearchFilterActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivitySearchFilterBinding
     private lateinit var quantity: EditText
+    private var product: ProductModel? = null
+
+    companion object {
+        private const val CAMERA_PERMISSION_REQUEST_CODE = 100
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +45,7 @@ class SearchFilterActivity : AppCompatActivity(), View.OnClickListener {
         binding.imageMinus.setOnClickListener(this)
         binding.imagePlus.setOnClickListener(this)
         binding.imageBack.setOnClickListener(this)
+
     }
 
     override fun onResume() {
@@ -48,6 +61,7 @@ class SearchFilterActivity : AppCompatActivity(), View.OnClickListener {
 
         } else if (v.id == binding.imageQrCode.id) {
             // Abre a camera para ler o QRCode
+            handleCamera()
 
         } else if (v.id == binding.imageMinus.id) {
             handleMinus()
@@ -59,6 +73,69 @@ class SearchFilterActivity : AppCompatActivity(), View.OnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
+    }
+
+    private fun handleCamera() {
+        // Verifica se a permissão da câmera foi concedida
+        // Se não foi concedida, aplicativo pede a permissão
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Solicita permissão da câmera
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.CAMERA),
+                CAMERA_PERMISSION_REQUEST_CODE
+            )
+        } else {
+            // Verifica se a câmera está disponível no dispositivo
+            if (isCameraAvailable()) {
+                val integrator = IntentIntegrator(this)
+                integrator.setBeepEnabled(false) // Desativa o som de beep
+                integrator.setOrientationLocked(false) // Permite rotação da tela
+                integrator.setPrompt(getString(R.string.point_the_camera)) // Mensagem exibida ao usuário
+                integrator.initiateScan()
+            } else {
+                // Câmera indisponível
+                Snackbar.make(binding.root, getString(R.string.camera_unavailable), Snackbar.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun isCameraAvailable(): Boolean {
+        return packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
+    }
+
+    /**
+     * Pede autorização para uso da câmera.
+     * Lê o QRCode ou exibe mensagem de erro.
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == IntentIntegrator.REQUEST_CODE) {
+            val result: IntentResult? =
+                IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+            if (result != null && result.contents != null) {
+                val scannedData = result.contents // Dados do QRCode lidos
+
+                try {
+                    product = convertQrcodeToProduct(scannedData.toString())
+                } catch (e: Exception) {
+                    Snackbar.make(binding.root, getString(R.string.incompatible_qr_code), Snackbar.LENGTH_LONG).show()
+                }
+
+            } else {
+                // Nenhum QRCode foi lido
+                Snackbar.make(binding.root, getString(R.string.qr_code_was_not_read), Snackbar.LENGTH_LONG).show()
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    private fun convertQrcodeToProduct(response: String): ProductModel {
+        return Gson().fromJson(response, ProductModel::class.java)
     }
 
     private fun handlePlus() {
@@ -116,7 +193,7 @@ class SearchFilterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setFilterValuesToEditTexts() {
-        val productFilter = ProductModel.productFilter
+        val productFilter = product ?: ProductModel.productFilter
 
         binding.editId.setText(productFilter.id?.toString() ?: "")
         binding.editName.setText(productFilter.name ?: "")

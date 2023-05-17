@@ -27,5 +27,9 @@
     <string name="ERROR_EXPIRED_LOGIN">Seu login expirou. Faça login novamente.</string>
     <string name="title_biometric_authetication">Autenticação biométrica</string>
     <string name="cancel">Cancelar</string>
+    <string name="point_the_camera">Aponte a câmera para o QRCode.</string>
+    <string name="camera_unavailable">Câmera indisponível.</string>
+    <string name="incompatible_qr_code">QR Code incompatível.</string>
+    <string name="qr_code_was_not_read">QR Code não foi lido.</string>
 
 </resources>

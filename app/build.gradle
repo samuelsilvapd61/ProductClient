@@ -51,5 +51,8 @@ dependencies {
     // https://mvnrepository.com/artifact/androidx.biometric/biometric
     implementation 'androidx.biometric:biometric:1.1.0'
 
+    implementation 'com.google.zxing:core:3.4.1'
+    implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
+
 
 }
