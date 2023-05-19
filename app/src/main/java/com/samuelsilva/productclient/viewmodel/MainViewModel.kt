@@ -19,12 +19,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _products = MutableLiveData<List<ProductModel>>()
     val products: LiveData<List<ProductModel>> = _products
 
+    private val _nextPage = MutableLiveData<Boolean>()
+    val nextPage: LiveData<Boolean> = _nextPage
+
     private val _status = MutableLiveData<ValidationModel>()
     val status: LiveData<ValidationModel> = _status
 
     fun list(productFilter: ProductModel, nextPage: Boolean) {
         val listener = object : APIListener<List<ProductModel>> {
             override fun onSuccess(result: List<ProductModel>) {
+                _nextPage.value = nextPage
                 _products.value = result
             }
 

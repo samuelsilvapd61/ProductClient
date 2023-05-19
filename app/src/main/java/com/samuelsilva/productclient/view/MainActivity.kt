@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
+    private var nextPage: Boolean = false
 
     private val adapter = ProductAdapter()
 
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         // Eventos de click
         binding.fab.setOnClickListener(this)
         binding.imageFilter.setOnClickListener(this)
+        binding.imageClearFilter.setOnClickListener(this)
         binding.imageLogout.setOnClickListener(this)
 
         // Configura o adaptador que faz a listagem funcionar
@@ -107,15 +109,36 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        if (v.id == binding.fab.id) {
-            startActivity(Intent(this, RegisterActivity::class.java))
+        when (v.id) {
+            binding.fab.id -> {
+                startActivity(Intent(this, RegisterActivity::class.java))
 
-        } else if (v.id == binding.imageFilter.id) {
-            startActivity(Intent(this, SearchFilterActivity::class.java))
-            finish()
+            }
+            binding.imageFilter.id -> {
+                startActivity(Intent(this, SearchFilterActivity::class.java))
+                finish()
 
-        } else if (v.id == binding.imageLogout.id) {
-            handleLogout()
+            }
+            binding.imageClearFilter.id -> {
+                ProductModel.productFilter = ProductModel().apply {
+                    id = null
+                    name = null
+                    description = null
+                    category = null
+                    productBrand = null
+                    provider = null
+                    quantity = null
+                    barCode = null
+                    fabricationDate = null
+                    expirationDate = null
+                    inclusionDate = null
+                }
+                viewModel.list(ProductModel.productFilter, false)
+
+            }
+            binding.imageLogout.id -> {
+                handleLogout()
+            }
         }
     }
 
@@ -140,9 +163,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
-
+        viewModel.nextPage.observe(this) {
+            nextPage = it
+        }
         viewModel.products.observe(this) {
-            adapter.updateTasks(it)
+            adapter.updateTasks(it, nextPage)
             resetLayout()
         }
     }

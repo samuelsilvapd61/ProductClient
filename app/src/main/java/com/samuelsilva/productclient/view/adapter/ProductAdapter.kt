@@ -28,7 +28,10 @@ class ProductAdapter : RecyclerView.Adapter<ProductViewHolder>() {
         return listProducts.count()
     }
 
-    fun updateTasks(list: List<ProductModel>) {
+    fun updateTasks(list: List<ProductModel>, nextPage: Boolean) {
+        if (!nextPage) {
+            listProducts.clear()
+        }
         listProducts.addAll(list)
         notifyDataSetChanged()
     }

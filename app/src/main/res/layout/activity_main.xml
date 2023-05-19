@@ -33,6 +33,17 @@
         app:layout_constraintTop_toTopOf="@id/text_bar" />
 
     <ImageButton
+        android:id="@+id/image_clear_filter"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:padding="15dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_filter_alt_off"
+        app:layout_constraintBottom_toBottomOf="@id/text_bar"
+        app:layout_constraintEnd_toStartOf="@id/image_filter"
+        app:layout_constraintTop_toTopOf="@id/text_bar" />
+
+    <ImageButton
         android:id="@+id/image_filter"
         android:layout_width="50dp"
         android:layout_height="0dp"
