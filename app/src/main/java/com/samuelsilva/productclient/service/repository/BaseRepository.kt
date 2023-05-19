@@ -26,7 +26,9 @@ open class BaseRepository(val context: Context) {
     fun <T> executeCall(call: Call<T>, listener: APIListener<T>) {
         call.enqueue(object : Callback<T> {
             override fun onResponse(call: Call<T>, response: Response<T>) {
-                if (response.code() == Constants.HTTP.SUCCESS) {
+                if (response.code() == Constants.HTTP.SUCCESS ||
+                    response.code() == Constants.HTTP.CREATED ||
+                    response.code() == Constants.HTTP.NO_CONTENT) {
                     response.body()?.let {
                         listener.onSuccess(it)
                     }

@@ -22,6 +22,8 @@ class Constants private constructor() {
 
     object HTTP {
         const val SUCCESS = 200
+        const val CREATED = 201
+        const val NO_CONTENT = 204
         const val EXPIRED_LOGIN = 403
     }
 

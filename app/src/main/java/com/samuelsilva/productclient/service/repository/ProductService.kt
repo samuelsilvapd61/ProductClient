@@ -1,6 +1,7 @@
 package com.samuelsilva.productclient.service.repository
 
 import com.samuelsilva.productclient.service.model.ProductModel
+import com.samuelsilva.productclient.service.model.ProductRequest
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -24,5 +25,11 @@ interface ProductService {
         @Query("size") size: Int?,
         @Query("sort") sort: String?
     ): Call<List<ProductModel>>
+
+    @Headers("Content-Type: application/json")
+    @POST("products")
+    fun createProduct(
+        @Body product: ProductRequest
+    ): Call<Unit>
 
 }

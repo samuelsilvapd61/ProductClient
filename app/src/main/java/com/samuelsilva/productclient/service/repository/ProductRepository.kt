@@ -4,6 +4,7 @@ import android.content.Context
 import com.samuelsilva.productclient.R
 import com.samuelsilva.productclient.service.listener.APIListener
 import com.samuelsilva.productclient.service.model.ProductModel
+import com.samuelsilva.productclient.service.model.ProductRequest
 
 class ProductRepository(context: Context) : BaseRepository(context) {
 
@@ -38,6 +39,17 @@ class ProductRepository(context: Context) : BaseRepository(context) {
                 20,
                 "id,asc"
             ), listener
+        )
+    }
+
+    fun save(product: ProductRequest, listener: APIListener<Unit>) {
+        if (!isConnectionAvailable()) {
+            listener.onFailure(context.getString(R.string.ERROR_INTERNET_CONNECTION), false)
+            return
+        }
+
+        executeCall(
+            remote.createProduct(product), listener
         )
     }
 
