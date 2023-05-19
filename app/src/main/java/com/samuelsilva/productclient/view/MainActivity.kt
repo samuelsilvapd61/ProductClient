@@ -180,7 +180,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val constraintSet = ConstraintSet()
         constraintSet.clone(binding.root)
         constraintSet.clear(binding.recyclerView.id, ConstraintSet.BOTTOM)
-        constraintSet.connect(binding.recyclerView.id, ConstraintSet.BOTTOM, binding.fab.id, ConstraintSet.BOTTOM)
+        constraintSet.connect(
+            binding.recyclerView.id,
+            ConstraintSet.BOTTOM,
+            binding.fab.id,
+            ConstraintSet.BOTTOM
+        )
         constraintSet.applyTo(binding.root)
 
         // Oculta o ícone de carregamento
@@ -199,8 +204,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun createProductOnClickListeners(context: MainActivity) {
         val listener = object : ProductListener {
             override fun onListClick(product: ProductModel) {
-                startActivity(Intent(context, ProductInfoActivity::class.java))
-                finish()
+                val bundle = Bundle()
+                bundle.putParcelable("product", product)
+
+                // Criar a Intent para abrir a próxima activity
+                val intent = Intent(context, ProductInfoActivity::class.java)
+                intent.putExtra("bundleProduct", bundle)
+
+                // Iniciar a próxima activity
+                startActivity(intent)
             }
 
         }
