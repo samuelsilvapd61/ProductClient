@@ -32,4 +32,10 @@ interface ProductService {
         @Body product: ProductRequest
     ): Call<Unit>
 
+    @Headers("Content-Type: application/json")
+    @DELETE("products")
+    fun deleteProduct(
+        @Query("id") id: Long
+    ): Call<Unit>
+
 }

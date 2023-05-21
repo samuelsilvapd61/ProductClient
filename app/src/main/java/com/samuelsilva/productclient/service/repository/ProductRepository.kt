@@ -53,4 +53,15 @@ class ProductRepository(context: Context) : BaseRepository(context) {
         )
     }
 
+    fun delete(id: Long, listener: APIListener<Unit>) {
+        if (!isConnectionAvailable()) {
+            listener.onFailure(context.getString(R.string.ERROR_INTERNET_CONNECTION), false)
+            return
+        }
+
+        executeCall(
+            remote.deleteProduct(id), listener
+        )
+    }
+
 }

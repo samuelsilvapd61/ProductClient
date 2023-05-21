@@ -52,8 +52,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         handleScrollAction()
 
+        showSnackbar()
+
         // Observadores
         observe()
+    }
+
+    private fun showSnackbar() {
+        val snackbarMessage = intent.getStringExtra("snackbar_message")
+        if (!snackbarMessage.isNullOrEmpty()) {
+            val rootView = findViewById<View>(android.R.id.content)
+            Snackbar.make(rootView, snackbarMessage, Snackbar.LENGTH_LONG).show()
+        }
     }
 
     /**

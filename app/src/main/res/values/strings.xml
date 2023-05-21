@@ -31,5 +31,11 @@
     <string name="camera_unavailable">Câmera indisponível.</string>
     <string name="incompatible_qr_code">QR Code incompatível.</string>
     <string name="qr_code_was_not_read">QR Code não foi lido.</string>
+    <string name="product_successfully_registered">Produto cadastrado com sucesso.</string>
+    <string name="remove_product_title">Remoção de produto</string>
+    <string name="remove_product_message">Deseja realmente remover o produto?</string>
+    <string name="yes">Sim</string>
+    <string name="product_removed_successfully">Produto removido com sucesso!</string>
+    <string name="product_edited_successfully">Produto alterado com sucesso!</string>
 
 </resources>

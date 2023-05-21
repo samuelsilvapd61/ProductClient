@@ -1,11 +1,16 @@
 package com.samuelsilva.productclient.view
 
+import android.app.AlertDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
+import com.samuelsilva.productclient.R
 import com.samuelsilva.productclient.databinding.ActivityProductInfoBinding
 import com.samuelsilva.productclient.service.model.ProductModel
+import com.samuelsilva.productclient.viewmodel.ProductInfoViewModel
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -13,11 +18,14 @@ import java.util.*
 class ProductInfoActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityProductInfoBinding
+    private lateinit var viewModel: ProductInfoViewModel
+    private lateinit var product: ProductModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel = ViewModelProvider(this).get(ProductInfoViewModel::class.java)
 
         // Esconder a barra superior que não serve pra nada
         supportActionBar?.hide()
@@ -28,6 +36,8 @@ class ProductInfoActivity : AppCompatActivity(), View.OnClickListener {
         binding.imageBack.setOnClickListener(this)
 
         fillProductValues()
+
+        observe()
     }
 
     private fun fillProductValues() {
@@ -37,7 +47,7 @@ class ProductInfoActivity : AppCompatActivity(), View.OnClickListener {
         // Verificar se o Bundle não é nulo
         if (bundle != null) {
             // Obter o product do Bundle
-            val product = bundle.getParcelable<ProductModel>("product")
+            product = bundle.getParcelable<ProductModel>("product")!!
 
             // Verificar se o product não é null e preencher a tela com as informações
             if (product != null) {
@@ -65,6 +75,7 @@ class ProductInfoActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
+
     private fun correctFormatDate(date: String?): String? {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         inputFormat.isLenient = false
@@ -77,6 +88,7 @@ class ProductInfoActivity : AppCompatActivity(), View.OnClickListener {
             null
         }
     }
+
     private fun correctFormatDateTime(dateTime: String?): String? {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
         inputFormat.isLenient = false
@@ -102,10 +114,55 @@ class ProductInfoActivity : AppCompatActivity(), View.OnClickListener {
 
         } else if (v.id == binding.imageGarbage.id) {
             // Apaga o produto
+            handleDelete()
 
         } else if (v.id == binding.imageBack.id) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
+    }
+
+    private fun handleDelete() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.remove_product_title)
+            .setMessage(R.string.remove_product_message)
+            .setPositiveButton(R.string.yes) { dialog, which ->
+                viewModel.delete(product.id!!)
+            }
+            .setNeutralButton(R.string.cancel, null)
+            .show()
+    }
+
+
+    private fun observe() {
+        viewModel.status.observe(this) {
+            if (it.status()) {
+                val message = getString(R.string.product_removed_successfully)
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("snackbar_message", message)
+                startActivity(intent)
+                finish()
+            } else {
+                if (it.expiredLogin()) {
+                    val snackbar =
+                        Snackbar.make(binding.root, it.message(), Snackbar.LENGTH_INDEFINITE)
+                    snackbar.setAction("OK") {
+                        snackbar.dismiss()
+                        // Ação ao clicar no botão "OK"
+                        handleLogout()
+                    }
+                    snackbar.show()
+
+                } else {
+                    Snackbar.make(binding.root, it.message(), Snackbar.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+    private fun handleLogout() {
+        viewModel.logout()
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 }

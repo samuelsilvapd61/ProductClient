@@ -141,7 +141,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     private fun observe() {
         viewModel.status.observe(this) {
             if (it.status()) {
-                Snackbar.make(binding.root, "Produto cadastrado com sucesso.", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, getString(R.string.product_successfully_registered), Snackbar.LENGTH_SHORT).show()
             } else {
                 if (it.expiredLogin()) {
                     val snackbar =
