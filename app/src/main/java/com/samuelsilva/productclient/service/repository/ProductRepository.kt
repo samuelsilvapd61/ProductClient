@@ -64,4 +64,15 @@ class ProductRepository(context: Context) : BaseRepository(context) {
         )
     }
 
+    fun edit(id: Long, product: ProductRequest, listener: APIListener<Unit>) {
+        if (!isConnectionAvailable()) {
+            listener.onFailure(context.getString(R.string.ERROR_INTERNET_CONNECTION), false)
+            return
+        }
+
+        executeCall(
+            remote.editProduct(id, product), listener
+        )
+    }
+
 }

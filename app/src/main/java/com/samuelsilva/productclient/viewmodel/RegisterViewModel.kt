@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.samuelsilva.productclient.service.constants.Constants
 import com.samuelsilva.productclient.service.listener.APIListener
-import com.samuelsilva.productclient.service.model.ProductModel
 import com.samuelsilva.productclient.service.model.ProductRequest
 import com.samuelsilva.productclient.service.model.ValidationModel
 import com.samuelsilva.productclient.service.repository.ProductRepository
@@ -20,20 +19,19 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     private val _status = MutableLiveData<ValidationModel>()
     val status: LiveData<ValidationModel> = _status
 
-    fun saveProduct(product: ProductRequest, edit: Boolean) {
+    fun saveProduct(product: ProductRequest, isEditMode: Boolean, id: Long) {
         val listener = object : APIListener<Unit> {
             override fun onSuccess(result: Unit) {
                 _status.value = ValidationModel()
-                val s = ""
             }
 
             override fun onFailure(message: String, expiredLogin: Boolean) {
                 _status.value = ValidationModel(message, expiredLogin)
-                val s = ""
             }
         }
 
-        productRepository.save(product, listener)
+        if (!isEditMode) productRepository.save(product, listener)
+        else productRepository.edit(id, product, listener)
     }
 
     fun logout() {

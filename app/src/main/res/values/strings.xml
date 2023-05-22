@@ -2,6 +2,7 @@
     <string name="app_name">ProductClient</string>
     <string name="login">Login</string>
     <string name="title_product_register">Cadastro de Produto</string>
+    <string name="title_product_edition">Edição de Produto</string>
     <string name="title_product_update">Atualização de Produto</string>
     <string name="name">Nome</string>
     <string name="description">Descrição</string>

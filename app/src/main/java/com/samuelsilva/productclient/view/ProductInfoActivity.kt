@@ -110,7 +110,15 @@ class ProductInfoActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         if (v.id == binding.fab.id) {
             // Abre a tela de cadastro, mas no modo de edição
-            startActivity(Intent(this, RegisterActivity::class.java))
+            val bundle = Bundle()
+            bundle.putParcelable("product", product)
+
+            // Criar a Intent para abrir a próxima activity
+            val intent = Intent(this, RegisterActivity::class.java)
+            intent.putExtra("bundleProduct", bundle)
+
+            // Iniciar a próxima activity
+            startActivity(intent)
 
         } else if (v.id == binding.imageGarbage.id) {
             // Apaga o produto

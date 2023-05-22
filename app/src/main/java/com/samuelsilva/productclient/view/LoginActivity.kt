@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
@@ -27,6 +28,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         // Variáveis da classe
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         binding = ActivityLoginBinding.inflate(layoutInflater)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
 
         // Layout
         setContentView(binding.root)

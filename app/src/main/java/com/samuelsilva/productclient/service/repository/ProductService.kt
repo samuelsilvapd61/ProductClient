@@ -38,4 +38,11 @@ interface ProductService {
         @Query("id") id: Long
     ): Call<Unit>
 
+    @Headers("Content-Type: application/json")
+    @PATCH("products")
+    fun editProduct(
+        @Query("id") id: Long,
+        @Body product: ProductRequest
+    ): Call<Unit>
+
 }

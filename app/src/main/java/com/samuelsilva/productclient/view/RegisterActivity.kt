@@ -5,10 +5,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
@@ -16,6 +18,7 @@ import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
 import com.samuelsilva.productclient.R
 import com.samuelsilva.productclient.databinding.ActivityRegisterBinding
+import com.samuelsilva.productclient.service.model.ProductModel
 import com.samuelsilva.productclient.service.model.ProductRequest
 import com.samuelsilva.productclient.viewmodel.RegisterViewModel
 import java.text.ParseException
@@ -28,6 +31,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var quantity: EditText
     private lateinit var product: ProductRequest
+    private var isEditMode = false
+    private var id: Long = 0
 
     companion object {
         private const val CAMERA_PERMISSION_REQUEST_CODE = 100
@@ -36,7 +41,9 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         setContentView(binding.root)
+
         quantity = binding.editQuantity
         viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
 
@@ -50,9 +57,47 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         binding.imagePlus.setOnClickListener(this)
         binding.imageBack.setOnClickListener(this)
 
+        getProductFromProductInfoActivity()
+
         // Observadores
         observe()
 
+    }
+
+    private fun getProductFromProductInfoActivity() {
+        // Obter o Bundle enviado pela MainActivity
+        val bundle = intent.getBundleExtra("bundleProduct")
+
+        // Verificar se o Bundle não é nulo
+        if (bundle != null) {
+            // Obter o product do Bundle
+            val productModel: ProductModel? = bundle.getParcelable<ProductModel>("product")
+
+            // Verificar se o product não é null e preencher a tela com as informações
+            if (productModel != null) {
+                id = productModel.id!!
+                isEditMode = true
+                modifyScreenToEditMode()
+                product = ProductRequest().apply {
+                    name = productModel.name
+                    description = productModel.description
+                    category = productModel.category
+                    productBrand = productModel.productBrand
+                    provider = productModel.provider
+                    quantity = productModel.quantity
+                    barCode = productModel.barCode
+                    fabricationDate = productModel.fabricationDate
+                    expirationDate = productModel.expirationDate
+                }
+                setFilterValuesToEditTexts(product)
+            }
+        }
+    }
+
+    private fun modifyScreenToEditMode() {
+        binding.textBar.text = R.string.title_product_edition.toString()
+        binding.imageQrCode.isGone = true
+        binding.fab.setImageResource(R.drawable.ic_done)
     }
 
     override fun onClick(v: View) {
@@ -123,8 +168,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
             this.fabricationDate = fabricationDate
             this.expirationDate = expirationDate
         }
+        viewModel.saveProduct(product, isEditMode, id)
 
-        viewModel.saveProduct(product, false)
     }
 
     private fun formatDate(dateString: String): String? {
@@ -134,14 +179,29 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
             val date = inputFormat.parse(dateString)
             outputFormat.format(date)
         } catch (e: ParseException) {
-            dateString
+            null
         }
     }
 
     private fun observe() {
         viewModel.status.observe(this) {
             if (it.status()) {
-                Snackbar.make(binding.root, getString(R.string.product_successfully_registered), Snackbar.LENGTH_SHORT).show()
+                if (!isEditMode) {
+                    Snackbar.make(
+                        binding.root,
+                        getString(R.string.product_successfully_registered),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Snackbar.make(
+                        binding.root,
+                        getString(R.string.product_edited_successfully),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+
             } else {
                 if (it.expiredLogin()) {
                     val snackbar =
@@ -158,7 +218,6 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
-
     }
 
     private fun handleLogout() {
@@ -191,7 +250,11 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 integrator.initiateScan()
             } else {
                 // Câmera indisponível
-                Snackbar.make(binding.root, getString(R.string.camera_unavailable), Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.camera_unavailable),
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
         }
     }
@@ -215,12 +278,20 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                     product = convertQrcodeToProduct(scannedData.toString())
                     setFilterValuesToEditTexts(product)
                 } catch (e: Exception) {
-                    Snackbar.make(binding.root, getString(R.string.incompatible_qr_code), Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(
+                        binding.root,
+                        getString(R.string.incompatible_qr_code),
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
 
             } else {
                 // Nenhum QRCode foi lido
-                Snackbar.make(binding.root, getString(R.string.qr_code_was_not_read), Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.qr_code_was_not_read),
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -232,7 +303,6 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setFilterValuesToEditTexts(product: ProductRequest) {
-
         binding.editName.setText(product.name ?: "")
         binding.editDescription.setText(product.description ?: "")
         binding.editCategory.setText(product.category ?: "")
@@ -242,25 +312,24 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         binding.editBarCode.setText(product.barCode ?: "")
 
         product.fabricationDate?.let {
-            if (correctFormatDate(it))
-                binding.editFabricationDate.setText(it)
+            binding.editFabricationDate.setText(correctFormatDate(it))
         }
 
         product.expirationDate?.let {
-            if (correctFormatDate(it))
-                binding.editExpirationDate.setText(it)
+            binding.editExpirationDate.setText(correctFormatDate(it))
         }
     }
 
-    private fun correctFormatDate(date: String): Boolean {
-        val inputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    private fun correctFormatDate(date: String?): String? {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         inputFormat.isLenient = false
-
+        val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        if (date == null) return null
         return try {
-            inputFormat.parse(date)
-            true
+            val parsedDate = inputFormat.parse(date)
+            outputFormat.format(parsedDate)
         } catch (e: ParseException) {
-            false
+            null
         }
     }
 }
