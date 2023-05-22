@@ -12,10 +12,10 @@
         android:text="@string/name"
         android:textColor="@color/black"
         android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/text_brand_value"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/text_brand_value"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_brand_value"
@@ -36,8 +36,8 @@
         android:text="@string/category"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/text_name_value"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_name_value" />
 
     <TextView
@@ -63,11 +63,8 @@
 
     <View
         android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        android:background="@color/black"
+        style="@style/ViewStyle"
+        android:background="@color/orange"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_category_value" />
 

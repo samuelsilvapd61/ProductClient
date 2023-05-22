@@ -3,30 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".view.SearchFilterActivity">
 
     <TextView
         android:id="@+id/text_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_200"
-        android:gravity="center"
-        android:padding="16dp"
+        style="@style/TitleBarStyle"
         android:text="@string/title_search_product_filter"
         android:textColor="@color/black"
-        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/image_back"
-        android:layout_width="40dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:padding="5dp"
+        style="@style/ImageButtonStyle"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintBottom_toBottomOf="@id/text_bar"
         app:layout_constraintStart_toStartOf="@id/text_bar"
@@ -34,10 +26,7 @@
 
     <ImageButton
         android:id="@+id/image_qr_code"
-        android:layout_width="50dp"
-        android:layout_height="0dp"
-        android:padding="15dp"
-        android:scaleType="centerCrop"
+        style="@style/ImageButtonStyle"
         android:src="@drawable/ic_qr_code"
         app:layout_constraintBottom_toBottomOf="@id/text_bar"
         app:layout_constraintEnd_toEndOf="@id/text_bar"
@@ -60,7 +49,7 @@
 
             <TextView
                 android:id="@+id/text_id"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:layout_marginTop="0dp"
                 android:text="@string/id"
                 app:layout_constraintStart_toStartOf="parent"
@@ -68,72 +57,71 @@
 
             <EditText
                 android:id="@+id/edit_id"
-                style="@style/EditTextForm"
-                app:layout_constraintEnd_toEndOf="parent"
+                style="@style/EditTextFormStyle"
                 android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_id" />
 
             <TextView
                 android:id="@+id/text_name"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_id" />
 
             <EditText
                 android:id="@+id/edit_name"
-                style="@style/EditTextForm"
-                android:textSize="20sp"
+                style="@style/EditTextFormStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_name" />
 
             <TextView
                 android:id="@+id/text_description"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/description"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_name" />
 
             <EditText
                 android:id="@+id/edit_description"
-                style="@style/EditTextForm"
+                style="@style/EditTextFormStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_description" />
 
             <TextView
                 android:id="@+id/text_category"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/category"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_description" />
 
             <EditText
                 android:id="@+id/edit_category"
-                style="@style/EditTextForm"
+                style="@style/EditTextFormStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_category" />
 
             <TextView
                 android:id="@+id/text_brand"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/brand"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_category" />
 
             <EditText
                 android:id="@+id/edit_brand"
-                style="@style/EditTextForm"
+                style="@style/EditTextFormStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_brand" />
 
             <TextView
                 android:id="@+id/text_quantity"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/quantity"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_brand" />
@@ -149,10 +137,10 @@
 
             <EditText
                 android:id="@+id/edit_quantity"
-                style="@style/TextViewFormDescription"
+                style="@style/EditTextFormStyle"
                 android:layout_marginStart="10dp"
-                android:textSize="30sp"
                 android:inputType="number"
+                android:textSize="30sp"
                 app:layout_constraintStart_toEndOf="@id/image_minus"
                 app:layout_constraintTop_toBottomOf="@id/text_quantity" />
 
@@ -168,28 +156,28 @@
 
             <TextView
                 android:id="@+id/text_provider"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/provider"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_quantity" />
 
             <EditText
                 android:id="@+id/edit_provider"
-                style="@style/EditTextForm"
+                style="@style/EditTextFormStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_provider" />
 
             <TextView
                 android:id="@+id/text_bar_code"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/bar_code"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_provider" />
 
             <EditText
                 android:id="@+id/edit_bar_code"
-                style="@style/EditTextForm"
+                style="@style/EditTextFormStyle"
                 android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -197,14 +185,14 @@
 
             <TextView
                 android:id="@+id/text_fabrication_date"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/fabrication_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_bar_code" />
 
             <EditText
                 android:id="@+id/edit_fabrication_date"
-                style="@style/EditTextForm"
+                style="@style/EditTextFormStyle"
                 android:hint="DD/MM/AAAA"
                 android:inputType="date"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -213,14 +201,14 @@
 
             <TextView
                 android:id="@+id/text_expiration_date"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/expiration_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_fabrication_date" />
 
             <EditText
                 android:id="@+id/edit_expiration_date"
-                style="@style/EditTextForm"
+                style="@style/EditTextFormStyle"
                 android:hint="@string/date_format"
                 android:inputType="date"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -229,14 +217,14 @@
 
             <TextView
                 android:id="@+id/text_inclusion_date"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/inclusion_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_expiration_date" />
 
             <EditText
                 android:id="@+id/edit_inclusion_date"
-                style="@style/EditTextForm"
+                style="@style/EditTextFormStyle"
                 android:hint="@string/date_format"
                 android:inputType="date"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -249,10 +237,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        style="@style/FABStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_search" />

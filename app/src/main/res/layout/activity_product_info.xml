@@ -9,24 +9,15 @@
 
     <TextView
         android:id="@+id/text_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_200"
-        android:gravity="center"
-        android:padding="16dp"
+        style="@style/TitleBarStyle"
         android:text="@string/title_product_info"
-        android:textColor="@color/black"
-        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/image_back"
-        android:layout_width="40dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:padding="5dp"
+        style="@style/ImageButtonStyle"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintBottom_toBottomOf="@id/text_bar"
         app:layout_constraintStart_toStartOf="@id/text_bar"
@@ -34,10 +25,7 @@
 
     <ImageButton
         android:id="@+id/image_garbage"
-        android:layout_width="50dp"
-        android:layout_height="0dp"
-        android:padding="15dp"
-        android:scaleType="centerCrop"
+        style="@style/ImageButtonStyle"
         android:src="@drawable/ic_delete_sweep"
         app:layout_constraintBottom_toBottomOf="@id/text_bar"
         app:layout_constraintEnd_toEndOf="@id/text_bar"
@@ -60,7 +48,7 @@
 
             <TextView
                 android:id="@+id/text_id"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:layout_marginTop="0dp"
                 android:text="@string/id"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +63,7 @@
 
             <TextView
                 android:id="@+id/text_name"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_id_value" />
@@ -89,7 +77,7 @@
 
             <TextView
                 android:id="@+id/text_description"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/description"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_name_value" />
@@ -103,7 +91,7 @@
 
             <TextView
                 android:id="@+id/text_category"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/category"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_description_value" />
@@ -117,7 +105,7 @@
 
             <TextView
                 android:id="@+id/text_brand"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/brand"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_category_value" />
@@ -131,7 +119,7 @@
 
             <TextView
                 android:id="@+id/text_quantity"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/quantity"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_brand_value" />
@@ -145,7 +133,7 @@
 
             <TextView
                 android:id="@+id/text_provider"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/provider"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_quantity_value" />
@@ -159,7 +147,7 @@
 
             <TextView
                 android:id="@+id/text_bar_code"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/bar_code"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_provider_value" />
@@ -173,7 +161,7 @@
 
             <TextView
                 android:id="@+id/text_fabrication_date"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/fabrication_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_bar_code_value" />
@@ -187,7 +175,7 @@
 
             <TextView
                 android:id="@+id/text_expiration_date"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/expiration_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_fabrication_date_value" />
@@ -202,7 +190,7 @@
 
             <TextView
                 android:id="@+id/text_inclusion_date"
-                style="@style/TextViewFormDescription"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/inclusion_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_expiration_date_value" />
@@ -220,10 +208,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        style="@style/FABStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_mode_edit" />

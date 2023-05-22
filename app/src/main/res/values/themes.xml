@@ -13,13 +13,29 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-    <style name="TextViewFormDescription">
-        <item name="android:textSize">15sp</item>
+
+    <style name="TitleBarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:background">@color/blue</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="TextViewDescriptionStyle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/purple</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginTop">12dp</item>
     </style>
+
+    <style name="RequiredTextViewDescriptionStyle" parent="TextViewDescriptionStyle">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
     <style name="TextViewFormValues">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/black</item>
@@ -27,14 +43,60 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">3dp</item>
     </style>
-    <style name="EditTextForm">
+
+    <style name="EditTextFormStyle">
         <item name="android:layout_width">0dp</item>
-        <item name="android:backgroundTint">@color/black</item>
         <item name="android:textColor">@color/black</item>
+        <item name="backgroundTint">@color/blue</item>
+        <item name="android:textColorHint">@color/gray</item>
         <item name="android:textSize">20dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:inputType">text</item>
         <item name="android:paddingStart">10dp</item>
         <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">6dp</item>
+    </style>
+
+    <style name="RequiredEditTextFormStyle" parent="EditTextFormStyle">
+        <item name="backgroundTint">@color/red</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/orange</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">3dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="FABStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="backgroundTint">@color/orange</item>
+    </style>
+
+    <style name="ImageButtonStyle">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="backgroundTint">@color/orange</item>
+    </style>
+
+    <style name="ImageViewStyle">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="backgroundTint">@color/orange</item>
     </style>
 </resources>
