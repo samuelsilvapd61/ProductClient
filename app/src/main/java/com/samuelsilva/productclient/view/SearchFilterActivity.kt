@@ -52,7 +52,7 @@ class SearchFilterActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        setFilterValuesToEditTexts()
+
     }
 
     override fun onClick(v: View) {
@@ -123,6 +123,7 @@ class SearchFilterActivity : AppCompatActivity(), View.OnClickListener {
 
                 try {
                     product = convertQrcodeToProduct(scannedData.toString())
+                    setFilterValuesToEditTexts()
                 } catch (e: Exception) {
                     Snackbar.make(binding.root, getString(R.string.incompatible_qr_code), Snackbar.LENGTH_LONG).show()
                 }
@@ -207,30 +208,28 @@ class SearchFilterActivity : AppCompatActivity(), View.OnClickListener {
         binding.editBarCode.setText(productFilter.barCode ?: "")
 
         productFilter.fabricationDate?.let {
-            if (correctFormatDate(it))
-                binding.editFabricationDate.setText(it)
+            binding.editFabricationDate.setText(correctFormatDate(it))
         }
 
         productFilter.expirationDate?.let {
-            if (correctFormatDate(it))
-                binding.editExpirationDate.setText(it)
+            binding.editExpirationDate.setText(correctFormatDate(it))
         }
 
         productFilter.inclusionDate?.let {
-            if (correctFormatDate(it))
-                binding.editInclusionDate.setText(it)
+            binding.editInclusionDate.setText(correctFormatDate(it))
         }
     }
 
-    private fun correctFormatDate(date: String): Boolean {
-        val inputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    private fun correctFormatDate(date: String?): String? {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         inputFormat.isLenient = false
-
+        val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        if (date == null) return null
         return try {
-            inputFormat.parse(date)
-            true
+            val parsedDate = inputFormat.parse(date)
+            outputFormat.format(parsedDate)
         } catch (e: ParseException) {
-            false
+            null
         }
     }
 }

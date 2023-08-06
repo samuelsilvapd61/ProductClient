@@ -44,7 +44,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         setContentView(binding.root)
 
-        quantity = binding.editQuantity
+        //quantity = binding.editQuantity
         viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
 
         // Esconder a barra superior que não serve pra nada
@@ -95,7 +95,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun modifyScreenToEditMode() {
-        binding.textBar.text = R.string.title_product_edition.toString()
+        binding.textBar.text = getString(R.string.title_product_edition)
         binding.imageQrCode.isGone = true
         binding.fab.setImageResource(R.drawable.ic_done)
     }
@@ -278,20 +278,12 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                     product = convertQrcodeToProduct(scannedData.toString())
                     setFilterValuesToEditTexts(product)
                 } catch (e: Exception) {
-                    Snackbar.make(
-                        binding.root,
-                        getString(R.string.incompatible_qr_code),
-                        Snackbar.LENGTH_LONG
-                    ).show()
+                    Snackbar.make(binding.root, getString(R.string.incompatible_qr_code), Snackbar.LENGTH_LONG).show()
                 }
 
             } else {
                 // Nenhum QRCode foi lido
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.qr_code_was_not_read),
-                    Snackbar.LENGTH_LONG
-                ).show()
+                Snackbar.make(binding.root, getString(R.string.qr_code_was_not_read), Snackbar.LENGTH_LONG).show()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

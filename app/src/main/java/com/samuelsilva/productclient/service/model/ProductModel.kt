@@ -75,6 +75,21 @@ class ProductModel() : Parcelable {
     companion object CREATOR : Parcelable.Creator<ProductModel> {
 
         lateinit var productFilter: ProductModel
+
+        fun isAllFieldsEmpty(): Boolean {
+            return productFilter.id == null &&
+                    productFilter.name.isNullOrBlank() &&
+                    productFilter.description.isNullOrBlank() &&
+                    productFilter.category.isNullOrBlank() &&
+                    productFilter.productBrand.isNullOrBlank() &&
+                    productFilter.provider.isNullOrBlank() &&
+                    productFilter.quantity == null &&
+                    productFilter.barCode.isNullOrBlank() &&
+                    productFilter.fabricationDate.isNullOrBlank() &&
+                    productFilter.expirationDate.isNullOrBlank() &&
+                    productFilter.inclusionDate.isNullOrBlank()
+        }
+
         override fun createFromParcel(parcel: Parcel): ProductModel {
             return ProductModel(parcel)
         }

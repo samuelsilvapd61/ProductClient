@@ -48,15 +48,25 @@
 
             <TextView
                 android:id="@+id/text_name"
-                style="@style/RequiredTextViewDescriptionStyle"
+                style="@style/TextViewDescriptionStyle"
                 android:layout_marginTop="0dp"
                 android:text="@string/name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                style="@style/TextViewDescriptionStyle"
+                android:layout_marginTop="0dp"
+                android:text="*"
+                android:textColor="@color/red"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/text_name"
+                app:layout_constraintStart_toEndOf="@id/text_name"
+                app:layout_constraintTop_toTopOf="@id/text_name" />
+
             <EditText
                 android:id="@+id/edit_name"
-                style="@style/RequiredEditTextFormStyle"
+                style="@style/EditTextFormStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_name" />
@@ -77,14 +87,24 @@
 
             <TextView
                 android:id="@+id/text_category"
-                style="@style/RequiredTextViewDescriptionStyle"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/category"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_description" />
 
+            <TextView
+                style="@style/TextViewDescriptionStyle"
+                android:layout_marginTop="0dp"
+                android:text="*"
+                android:textColor="@color/red"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/text_category"
+                app:layout_constraintStart_toEndOf="@id/text_category"
+                app:layout_constraintTop_toTopOf="@id/text_category" />
+
             <EditText
                 android:id="@+id/edit_category"
-                style="@style/RequiredEditTextFormStyle"
+                style="@style/EditTextFormStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_category" />
@@ -105,7 +125,7 @@
 
             <TextView
                 android:id="@+id/text_quantity"
-                style="@style/RequiredTextViewDescriptionStyle"
+                style="@style/TextViewDescriptionStyle"
                 android:text="@string/quantity"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_brand" />
@@ -121,11 +141,13 @@
 
             <EditText
                 android:id="@+id/edit_quantity"
-                style="@style/RequiredEditTextFormStyle"
+                style="@style/EditTextFormStyle"
                 android:layout_marginStart="10dp"
                 android:inputType="number"
                 android:text="0"
                 android:textSize="30sp"
+                android:layout_width="150dp"
+                android:textAlignment="center"
                 app:layout_constraintStart_toEndOf="@id/image_minus"
                 app:layout_constraintTop_toBottomOf="@id/text_quantity" />
 

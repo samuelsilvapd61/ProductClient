@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.samuelsilva.productclient.R
 import com.samuelsilva.productclient.databinding.ActivityMainBinding
 import com.samuelsilva.productclient.service.listener.ProductListener
 import com.samuelsilva.productclient.service.model.ProductModel
@@ -56,6 +57,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         // Observadores
         observe()
+
+        if (ProductModel.CREATOR.isAllFieldsEmpty()) {
+            // Se nao tiver filtro, deixa o icone cinza
+            binding.imageClearFilter.alpha = 0.3F
+        } else {
+            // Se tiver, deixa o icone branco
+            binding.imageClearFilter.alpha = 1F
+        }
     }
 
     private fun showSnackbar() {
@@ -144,6 +153,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     inclusionDate = null
                 }
                 viewModel.list(ProductModel.productFilter, false)
+                binding.imageClearFilter.alpha = 0.3F
 
             }
             binding.imageLogout.id -> {

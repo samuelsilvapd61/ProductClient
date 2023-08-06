@@ -17,7 +17,7 @@ class Constants private constructor() {
     }
 
     object PATH {
-        const val IP = "http://192.168.1.80:8888/"
+        const val IP = "http://10.0.0.123:8888/"
     }
 
     object HTTP {
@@ -25,18 +25,6 @@ class Constants private constructor() {
         const val CREATED = 201
         const val NO_CONTENT = 204
         const val EXPIRED_LOGIN = 403
-    }
-
-    object BUNDLE {
-        const val TASKID = "taskid"
-        const val TASKFILTER = "taskfilter"
-    }
-
-    // Filtro de tarefas
-    object FILTER {
-        const val ALL = 0
-        const val NEXT = 1
-        const val EXPIRED = 2
     }
 
 }
