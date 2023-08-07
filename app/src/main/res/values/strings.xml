@@ -17,7 +17,7 @@
     <string name="title_search_product_filter">Filtragem de Produto</string>
     <string name="id">ID</string>
     <string name="inclusion_date">Data de Inclusão</string>
-    <string name="email">Email</string>
+    <string name="user">Usuário</string>
     <string name="password">Senha</string>
     <string name="sign_in">Entrar</string>
     <string name="title_product_info">Informações do Produto</string>

@@ -28,16 +28,46 @@
         app:layout_constraintTop_toBottomOf="@+id/text_bar" />
 
     <EditText
-        android:id="@+id/edit_email"
+        android:id="@+id/edit_ip"
         style="@style/EditTextFormStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:hint="IP"
+        android:inputType="text"
+        app:layout_constraintEnd_toStartOf="@id/edit_port"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_login"
+        app:layout_constraintHorizontal_weight="2" />
+
+    <EditText
+        android:id="@+id/edit_port"
+        style="@style/EditTextFormStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
+        android:hint="Port"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/edit_ip"
+        app:layout_constraintTop_toBottomOf="@id/text_login"
+        app:layout_constraintHorizontal_weight="1" />
+
+    <EditText
+        android:id="@+id/edit_user"
+        style="@style/EditTextFormStyle"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/user"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_login" />
+        app:layout_constraintTop_toBottomOf="@id/edit_ip" />
 
     <EditText
         android:id="@+id/edit_password"
@@ -49,7 +79,7 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_email" />
+        app:layout_constraintTop_toBottomOf="@id/edit_user" />
 
     <Button
         android:id="@+id/button_login"

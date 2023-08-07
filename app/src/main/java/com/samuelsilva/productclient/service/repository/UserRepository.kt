@@ -8,9 +8,7 @@ import com.samuelsilva.productclient.service.model.UserModel
 
 class UserRepository(context: Context) : BaseRepository(context) {
 
-    private val remote = RetrofitClient.getService(UserService::class.java)
-
-    fun login(email: String, password: String, listener: APIListener<ServerTokenResponseModel>) {
+    fun login(user: String, password: String, listener: APIListener<ServerTokenResponseModel>) {
         if (!isConnectionAvailable()) {
             listener.onFailure(context.getString(R.string.ERROR_INTERNET_CONNECTION), false)
             return
@@ -19,9 +17,11 @@ class UserRepository(context: Context) : BaseRepository(context) {
         // Setando o token como null, para não adicionar o header no momento de login
         RetrofitClient.addHeaders(null)
 
+        var remote = RetrofitClient.getService(UserService::class.java)
+
         // Executando a chamada
         val user = UserModel().apply {
-            this.email = email
+            this.user = user
             this.password = password
         }
         executeCall(remote.login(user), listener)

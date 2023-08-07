@@ -27,11 +27,19 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Faz login chamando o servidor
      */
-    fun doLogin(email: String, password: String) {
-        userRepository.login(email, password, object : APIListener<ServerTokenResponseModel> {
+    fun doLogin(ip: String, port: String, user: String, password: String) {
+
+        // Configura ip e porta na requisição
+        RetrofitClient.configureBaseUrl(ip, port)
+
+        userRepository.login(user, password, object : APIListener<ServerTokenResponseModel> {
             override fun onSuccess(result: ServerTokenResponseModel) {
                 securityPreferences.store(Constants.SHARED.TOKEN_KEY, result.token)
                 RetrofitClient.addHeaders(result.token)
+
+                //Armazenar IP e PORTA
+                securityPreferences.store(Constants.SHARED.IP_KEY, ip)
+                securityPreferences.store(Constants.SHARED.PORT_KEY, port)
 
                 _login.value = ValidationModel()
             }
@@ -52,6 +60,13 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
         // Se token for diferente de vazio, usuário está logado
         val logged = (token != "")
+
+        if (logged) {
+            // Configura ip e porta na requisição
+            RetrofitClient.configureBaseUrl(
+                securityPreferences.get(Constants.SHARED.IP_KEY),
+                securityPreferences.get(Constants.SHARED.PORT_KEY))
+        }
 
         // Se usuário está logado e a autenticação biométrica está disponível
         _loggedUser.value = (logged && BiometricHelper.isBiometricAvailable(getApplication()))

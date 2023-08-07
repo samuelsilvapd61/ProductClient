@@ -8,6 +8,8 @@ class Constants private constructor() {
     // SharedPreferences
     object SHARED {
         const val TOKEN_KEY = "tokenkey"
+        const val IP_KEY = "ipkey"
+        const val PORT_KEY = "portkey"
     }
 
     // Requisições API
@@ -17,7 +19,11 @@ class Constants private constructor() {
     }
 
     object PATH {
-        const val IP = "http://10.0.0.123:8888/"
+        var PATH = "http://10.0.0.0:8888"
+
+        fun setPath(ip: String, port: String) {
+            PATH = "http://${ip}:${port}/"
+        }
     }
 
     object HTTP {

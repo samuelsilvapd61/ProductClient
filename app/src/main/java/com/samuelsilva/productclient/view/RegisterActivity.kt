@@ -29,7 +29,6 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var viewModel: RegisterViewModel
     private lateinit var binding: ActivityRegisterBinding
-    private lateinit var quantity: EditText
     private lateinit var product: ProductRequest
     private var isEditMode = false
     private var id: Long = 0
@@ -122,26 +121,26 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun handlePlus() {
-        val text = quantity.text.toString()
+        val text = binding.editQuantity.text.toString()
         if (text.isNotBlank()) {
             var valor = text.toInt()
             valor++
-            quantity.setText(valor.toString())
+            binding.editQuantity.setText(valor.toString())
         } else {
-            quantity.setText("0")
+            binding.editQuantity.setText("0")
         }
     }
 
     private fun handleMinus() {
-        val text = quantity.text.toString()
+        val text = binding.editQuantity.text.toString()
         if (text.isNotBlank()) {
             var valor = text.toInt()
             if (valor > 0) {
                 valor--
             }
-            quantity.setText(valor.toString())
+            binding.editQuantity.setText(valor.toString())
         } else {
-            quantity.setText("0")
+            binding.editQuantity.setText("0")
         }
     }
 

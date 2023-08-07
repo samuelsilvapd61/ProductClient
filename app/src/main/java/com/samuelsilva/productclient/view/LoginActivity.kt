@@ -13,7 +13,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.samuelsilva.productclient.R
 import com.samuelsilva.productclient.databinding.ActivityLoginBinding
+import com.samuelsilva.productclient.service.constants.Constants
 import com.samuelsilva.productclient.service.model.ProductModel
+import com.samuelsilva.productclient.service.repository.SecurityPreferences
 import com.samuelsilva.productclient.viewmodel.LoginViewModel
 import java.util.concurrent.Executor
 
@@ -21,6 +23,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var viewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var securityPreferences: SecurityPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +35,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         // Layout
         setContentView(binding.root)
+
+        securityPreferences = SecurityPreferences(this)
 
         // Esconder a barra superior que não serve pra nada
         supportActionBar?.hide()
@@ -59,6 +64,19 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         // Observadores
         observe()
 
+        fillServerValuesEditTexts()
+    }
+
+    private fun fillServerValuesEditTexts() {
+        val ip = securityPreferences.get(Constants.SHARED.IP_KEY)
+        val port = securityPreferences.get(Constants.SHARED.PORT_KEY)
+
+        if (ip.isValidIp()) {
+            binding.editIp.setText(ip)
+        }
+        if (port.isValidPort()) {
+            binding.editPort.setText(port)
+        }
     }
 
     override fun onClick(v: View) {
@@ -76,10 +94,26 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun handleLogin() {
-        val email = binding.editEmail.text.toString()
+        val ip = binding.editIp.text.toString()
+        val port = binding.editPort.text.toString()
+        val user = binding.editUser.text.toString()
         val password = binding.editPassword.text.toString()
 
-        viewModel.doLogin(email, password)
+        if (ip.isValidIp() && port.isValidPort()) {
+            viewModel.doLogin(ip, port, user, password)
+        } else {
+            Snackbar.make(binding.root, "IP e Porta devem estar preenchidos corretamente.", Snackbar.LENGTH_LONG).show()
+        }
+    }
+
+    fun String.isValidIp(): Boolean {
+        val ipRegex = """^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$""".toRegex()
+        return matches(ipRegex) && this.isNotBlank()
+    }
+
+    fun String.isValidPort(): Boolean {
+        val portRegex = """^\d{1,5}$""".toRegex()
+        return matches(portRegex) && toInt() in 1..65535 && this.isNotBlank()
     }
 
     private fun observe() {

@@ -8,8 +8,6 @@ import com.samuelsilva.productclient.service.model.ProductRequest
 
 class ProductRepository(context: Context) : BaseRepository(context) {
 
-    private val remote = RetrofitClient.getService(ProductService::class.java)
-
     companion object {
         var page: Int = 0
     }
@@ -21,6 +19,8 @@ class ProductRepository(context: Context) : BaseRepository(context) {
         }
 
         if (nextPage) page++ else page = 0
+
+        var remote = RetrofitClient.getService(ProductService::class.java)
 
         executeCall(
             remote.getProductsByParameter(
@@ -47,7 +47,7 @@ class ProductRepository(context: Context) : BaseRepository(context) {
             listener.onFailure(context.getString(R.string.ERROR_INTERNET_CONNECTION), false)
             return
         }
-
+        var remote = RetrofitClient.getService(ProductService::class.java)
         executeCall(
             remote.createProduct(product), listener
         )
@@ -58,7 +58,7 @@ class ProductRepository(context: Context) : BaseRepository(context) {
             listener.onFailure(context.getString(R.string.ERROR_INTERNET_CONNECTION), false)
             return
         }
-
+        var remote = RetrofitClient.getService(ProductService::class.java)
         executeCall(
             remote.deleteProduct(id), listener
         )
@@ -69,7 +69,7 @@ class ProductRepository(context: Context) : BaseRepository(context) {
             listener.onFailure(context.getString(R.string.ERROR_INTERNET_CONNECTION), false)
             return
         }
-
+        var remote = RetrofitClient.getService(ProductService::class.java)
         executeCall(
             remote.editProduct(id, product), listener
         )
