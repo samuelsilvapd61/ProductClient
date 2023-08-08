@@ -52,7 +52,7 @@ class SearchFilterActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-
+        setFilterValuesToEditTexts()
     }
 
     override fun onClick(v: View) {

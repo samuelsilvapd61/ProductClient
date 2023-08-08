@@ -18,14 +18,6 @@ class Constants private constructor() {
         const val BEARER = "Bearer"
     }
 
-    object PATH {
-        var PATH = "http://10.0.0.0:8888"
-
-        fun setPath(ip: String, port: String) {
-            PATH = "http://${ip}:${port}/"
-        }
-    }
-
     object HTTP {
         const val SUCCESS = 200
         const val CREATED = 201
