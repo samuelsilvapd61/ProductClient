@@ -5,6 +5,7 @@ Com ele é possível acessar o sistema servidor para cadastrar e gerenciar infor
 Para o funcionamento do sistema, é necessário instalar o sistema servidor em um computador.<br>
 
 Assita o video tutorial e siga os passos demonstrados para instalar e configurar corretamente o sistema:<br>
+https://www.youtube.com/watch?v=Lz0X02Az3FU
 
 Faça o download da pasta cliente, ela contem o arquivo necessário para instalação:<br>
 https://1drv.ms/f/s!AvNtyddEP78cgthMbu-Y4na1tEhFtg?e=09q3xk
