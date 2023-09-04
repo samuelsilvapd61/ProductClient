@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProductClient</string>
+    <string name="app_name">Samuca Inventários</string>
     <string name="login">Login</string>
     <string name="title_product_register">Cadastro de Produto</string>
     <string name="title_product_edition">Edição de Produto</string>
