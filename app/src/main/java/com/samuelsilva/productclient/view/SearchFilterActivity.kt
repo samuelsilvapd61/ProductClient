@@ -101,7 +101,11 @@ class SearchFilterActivity : AppCompatActivity(), View.OnClickListener {
                 integrator.initiateScan()
             } else {
                 // Câmera indisponível
-                Snackbar.make(binding.root, getString(R.string.camera_unavailable), Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.camera_unavailable),
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
         }
     }
@@ -125,12 +129,20 @@ class SearchFilterActivity : AppCompatActivity(), View.OnClickListener {
                     product = convertQrcodeToProduct(scannedData.toString())
                     setFilterValuesToEditTexts()
                 } catch (e: Exception) {
-                    Snackbar.make(binding.root, getString(R.string.incompatible_qr_code), Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(
+                        binding.root,
+                        getString(R.string.incompatible_qr_code),
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
 
             } else {
                 // Nenhum QRCode foi lido
-                Snackbar.make(binding.root, getString(R.string.qr_code_was_not_read), Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.qr_code_was_not_read),
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -206,18 +218,10 @@ class SearchFilterActivity : AppCompatActivity(), View.OnClickListener {
         binding.editProvider.setText(productFilter.provider ?: "")
         binding.editQuantity.setText(productFilter.quantity?.toString() ?: "")
         binding.editBarCode.setText(productFilter.barCode ?: "")
+        binding.editFabricationDate.setText(correctFormatDate(productFilter.fabricationDate) ?: "")
+        binding.editExpirationDate.setText(correctFormatDate(productFilter.expirationDate) ?: "")
+        binding.editInclusionDate.setText(correctFormatDate(productFilter.inclusionDate) ?: "")
 
-        productFilter.fabricationDate?.let {
-            binding.editFabricationDate.setText(correctFormatDate(it))
-        }
-
-        productFilter.expirationDate?.let {
-            binding.editExpirationDate.setText(correctFormatDate(it))
-        }
-
-        productFilter.inclusionDate?.let {
-            binding.editInclusionDate.setText(correctFormatDate(it))
-        }
     }
 
     private fun correctFormatDate(date: String?): String? {

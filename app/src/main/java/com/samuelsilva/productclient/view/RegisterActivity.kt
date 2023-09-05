@@ -301,14 +301,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         binding.editProvider.setText(product.provider ?: "")
         binding.editQuantity.setText(product.quantity?.toString() ?: "")
         binding.editBarCode.setText(product.barCode ?: "")
-
-        product.fabricationDate?.let {
-            binding.editFabricationDate.setText(correctFormatDate(it))
-        }
-
-        product.expirationDate?.let {
-            binding.editExpirationDate.setText(correctFormatDate(it))
-        }
+        binding.editFabricationDate.setText(correctFormatDate(product.fabricationDate) ?: "")
+        binding.editExpirationDate.setText(correctFormatDate(product.expirationDate) ?: "")
     }
 
     private fun correctFormatDate(date: String?): String? {
